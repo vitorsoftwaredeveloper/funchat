@@ -1,0 +1,24 @@
+{
+  "name": "funchat",
+  "version": "1.0.0",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vitorsoftwaredeveloper/funchat.git"
+  },
+  "author": "vitorsoftwaredeveloper",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vitorsoftwaredeveloper/funchat/issues"
+  },
+  "homepage": "https://github.com/vitorsoftwaredeveloper/funchat#readme",
+  "keywords": [],
+  "description": "",
+  "dependencies": {
+    "express": "^5.1.0",
+    "socket.io": "^4.8.1"
+  }
+}
