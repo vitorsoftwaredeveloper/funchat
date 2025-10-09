@@ -1,20 +1,56 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8">
-  <title>Chat em Tempo Real</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <div id="chat">
-    <ul id="messages"></ul>
-    <form id="form">
-      <input id="input" autocomplete="off" placeholder="Digite sua mensagem..." />
-      <button>Enviar</button>
-    </form>
-  </div>
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Chat App</title>
+    <link rel="stylesheet" href="style.css" />
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <main class="wrap">
+      <nav class="topnav">
+        <div class="brand">Vitor Soares</div>
+        <ul class="menu">
+          <li><a href="#">Início</a></li>
+          <li><a href="#">Portfolio</a></li>
+          <li><a href="#">Sobre mim</a></li>
+          <li><a href="#">Contato</a></li>
+        </ul>
+      </nav>
 
-  <script src="/socket.io/socket.io.js"></script>
-  <script src="script.js"></script>
-</body>
+      <header class="hero">
+        <div class="hero-left">
+          <h1 class="title">Fullstack Developer</h1>
+          <p class="subtitle">Ideias são inspirações que se trasportam do abstrato para o material através de minhas mãos.</p>
+          <div class="hero-actions">
+            <button class="btn primary">Projetos</button>
+            <button class="btn outline">Contato</button>
+          </div>
+
+          <div class="controls">
+            <input id="nameInput" placeholder="Seu nome" />
+            <button id="joinBtn">Entrar</button>
+          </div>
+        </div>
+        <div class="hero-right">
+          <div class="avatar" aria-hidden="true"></div>
+        </div>
+      </header>
+
+      <section class="chat" id="chatSection">
+        <div class="messages" id="messages"></div>
+        <div id="typingIndicator" class="typing" aria-live="polite"></div>
+        <form id="chatForm" class="chat-form">
+          <input id="msgInput" autocomplete="off" placeholder="Escreva uma mensagem..." />
+          <button>Enviar</button>
+        </form>
+      </section>
+    </main>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="script.js"></script>
+  </body>
 </html>
+                <button class="btn primary">Projetos</button>

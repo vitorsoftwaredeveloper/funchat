@@ -1,0 +1,9 @@
+node_modules
+dist
+build
+.next
+*.min.js
+*.lock
+coverage
+public/**/*.png
+public/**/*.jpg

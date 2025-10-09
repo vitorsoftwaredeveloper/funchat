@@ -1,26 +1,34 @@
-import express from "express";
-import http from "http";
-import { Server } from "socket.io";
+const path = require('path');
+const express = require('express');
+const http = require('http');
+const { Server } = require('socket.io');
 
 const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-app.use(express.static("public"));
+// Serve static files from public
+app.use(express.static(path.join(__dirname, '..', 'public')));
 
-io.on("connection", (socket) => {
-  console.log("Novo usuário conectado:", socket.id);
+io.on('connection', (socket) => {
+  console.log('Novo usuário conectado:', socket.id);
 
-  socket.on("chatMessage", (msg) => {
-    // Envia a mensagem para todos os usuários conectados
-    io.emit("chatMessage", msg);
+  socket.on('chatMessage', (msg) => {
+    // broadcast to all clients including sender
+    io.emit('chatMessage', msg);
   });
 
-  socket.on("disconnect", () => {
-    console.log("Usuário desconectado:", socket.id);
+  socket.on('typing', (payload) => {
+    // payload: { name, typing }
+    io.emit('typing', payload);
+  });
+
+  socket.on('disconnect', () => {
+    console.log('Usuário desconectado:', socket.id);
   });
 });
 
-server.listen(3000, () => {
-  console.log("Servidor rodando em http://localhost:3000");
+const PORT = process.env.PORT || 3000;
+server.listen(PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${PORT}`);
 });
