@@ -30,11 +30,10 @@
             Ideias são inspirações que se trasportam do abstrato para o material através de minhas
             mãos.
           </p>
-
-          <div class="controls">
-            <input id="nameInput" type="text" placeholder="Seu nome" />
-            <button id="joinBtn">Entrar</button>
-          </div>
+          <form id="joinForm" class="controls" aria-label="Entrar no chat" novalidate>
+            <input id="nameInput" name="name" type="text" placeholder="Seu nome" required />
+            <button id="joinBtn" type="submit">Entrar</button>
+          </form>
         </div>
         <div class="hero-right">
           <div class="avatar" aria-hidden="true"></div>

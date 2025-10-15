@@ -231,6 +231,13 @@ body {
   background-clip: padding-box;
 }
 
+.new-member {
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin: 12px 0;
+}
+
 @media (max-width: 800px) {
   .hero {
     flex-direction: column;
