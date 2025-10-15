@@ -12,25 +12,24 @@ let myName = '';
 let typingUsers = new Set();
 
 function avatarFor(name) {
-  // Generate a simple placeholder avatar using gradient and initials (server-free)
-  const initials = name
-    .split(' ')
-    .map((s) => s[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
+  const initials = name[0].toUpperCase();
+
   const hue = Array.from(name).reduce((s, c) => s + c.charCodeAt(0), 0) % 360;
   const bg = `linear-gradient(135deg, hsl(${hue}deg 70% 45%), hsl(${(hue + 30) % 360}deg 70% 40%))`;
   const el = document.createElement('div');
+
   el.className = 'avatar-sm';
   el.style.background = bg;
   el.title = name;
-  // put initials as overlay
   el.style.display = 'flex';
   el.style.alignItems = 'center';
   el.style.justifyContent = 'center';
   el.style.color = 'rgba(255,255,255,0.95)';
   el.style.fontWeight = '700';
+  el.style.padding = '5px';
+  el.style.width = '30px';
+  el.style.height = '30px';
+  el.style.borderRadius = '100%';
   el.textContent = initials;
   return el;
 }
@@ -39,11 +38,15 @@ function addMessage(text, author, isYou) {
   const div = document.createElement('div');
   div.className = 'message' + (isYou ? ' you' : '');
   const avatarEl = avatarFor(author);
+
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
+
   const meta = document.createElement('div');
   meta.className = 'meta';
-  meta.textContent = author + ' • ' + new Date().toLocaleTimeString();
+  meta.textContent =
+    author + ' • ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
   const body = document.createElement('div');
   body.textContent = text;
   bubble.appendChild(meta);

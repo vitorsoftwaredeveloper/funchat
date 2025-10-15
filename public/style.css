@@ -4,46 +4,40 @@
   --accent: #00a6ff; /* bright blue */
   --muted: #8fa6b3; /* muted text */
   --glass: rgba(255, 255, 255, 0.03);
+  --white: rgba(255, 255, 255, 0.95);
 }
 * {
   box-sizing: border-box;
 }
 body {
   margin: 0;
-.topnav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 8px;
-  margin-bottom: 12px;
-}
-.topnav .brand {
-  font-weight: 700;
-  color: #e6f7ff;
-}
-.topnav .menu {
-  list-style: none;
-  display: flex;
-  gap: 18px;
-  margin: 0;
-  padding: 0;
-}
-.topnav .menu a {
-  color: rgba(255, 255, 255, 0.65);
-  text-decoration: none;
-  font-weight: 600;
-}
-  font-family:
-    'Poppins',
-    Inter,
-    system-ui,
-    -apple-system,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
+  .topnav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 8px;
+    margin-bottom: 12px;
+  }
+  .topnav .brand {
+    font-weight: 700;
+    color: #e6f7ff;
+  }
+  .topnav .menu {
+    list-style: none;
+    display: flex;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
+  }
+  .topnav .menu a {
+    color: rgba(255, 255, 255, 0.65);
+    text-decoration: none;
+    font-weight: 600;
+  }
+  font-family: 'Poppins', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue',
     Arial;
-  background:
-    radial-gradient(1200px 600px at 10% 20%, rgba(0, 130, 180, 0.06), transparent), var(--bg);
+  background: radial-gradient(1200px 600px at 10% 20%, rgba(0, 130, 180, 0.06), transparent),
+    var(--bg);
   color: #dfeff6;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -96,44 +90,40 @@ body {
   padding: 10px 14px;
   border-radius: 8px;
   font-weight: 700;
-.hero-left {
-  flex: 1;
-}
-.title {
-  font-size: 56px;
-  margin: 0;
-  color: var(--accent);
-  font-weight: 800;
-  text-shadow: 0 6px 24px rgba(0, 120, 180, 0.06);
-}
-.subtitle {
-  color: var(--muted);
-  margin-top: 12px;
-  max-width: 560px;
-  line-height: 1.6;
-}
-.hero-actions {
-  margin-top: 18px;
-  display: flex;
-  gap: 12px;
-}
-.btn {
-  padding: 10px 18px;
-  border-radius: 10px;
-  border: 0;
-  font-weight: 700;
-  cursor: pointer;
-}
-.btn.primary {
-  background: linear-gradient(90deg, #00b7ff, #0077ff);
-  color: #021b23;
-  box-shadow: 0 8px 30px rgba(0, 120, 200, 0.18);
-}
-.btn.outline {
-  background: transparent;
-  border: 2px solid rgba(0, 167, 255, 0.18);
-  color: var(--accent);
-}
+  .hero-left {
+    flex: 1;
+  }
+  .title {
+    font-size: 56px;
+    margin: 0;
+    color: var(--accent);
+    font-weight: 800;
+    text-shadow: 0 6px 24px rgba(0, 120, 180, 0.06);
+  }
+  .subtitle {
+    color: var(--muted);
+    margin-top: 12px;
+    max-width: 560px;
+    line-height: 1.6;
+  }
+
+  .btn {
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 0;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .btn.primary {
+    background: linear-gradient(90deg, #00b7ff, #0077ff);
+    color: #021b23;
+    box-shadow: 0 8px 30px rgba(0, 120, 200, 0.18);
+  }
+  .btn.outline {
+    background: transparent;
+    border: 2px solid rgba(0, 167, 255, 0.18);
+    color: var(--accent);
+  }
   cursor: pointer;
 }
 .hero-right {
@@ -145,14 +135,11 @@ body {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background-image:
-    linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.45)),
+  background-image: linear-gradient(180deg, rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.45)),
     url('https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=');
   background-size: cover;
   border: 6px solid rgba(0, 90, 120, 0.15);
-  box-shadow:
-    0 10px 30px rgba(0, 90, 140, 0.25),
-    inset 0 0 30px rgba(0, 160, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 90, 140, 0.25), inset 0 0 30px rgba(0, 160, 255, 0.08);
 }
 
 .chat {
@@ -182,22 +169,18 @@ body {
   background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
   border: 1px solid rgba(255, 255, 255, 0.02);
 }
-.message.you {
-  align-self: flex-end;
-  background: linear-gradient(180deg, rgba(0, 160, 255, 0.12), rgba(0, 120, 200, 0.08));
-  border-color: rgba(0, 160, 255, 0.18);
-  color: #021b23;
-}
+
 .meta {
   font-size: 12px;
   color: var(--muted);
   margin-bottom: 6px;
 }
+
 .message.you {
   align-self: flex-end;
   background: linear-gradient(180deg, rgba(0, 160, 255, 0.12), rgba(0, 120, 200, 0.08));
   border-color: rgba(0, 160, 255, 0.18);
-  color: #021b23;
+  color: var(--white);
   box-shadow: 0 10px 30px rgba(0, 120, 180, 0.14);
   background-size: cover;
   flex-shrink: 0;
