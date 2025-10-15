@@ -14,13 +14,15 @@ io.on('connection', (socket) => {
   console.log('Novo usuário conectado:', socket.id);
 
   socket.on('chatMessage', (msg) => {
-    // broadcast to all clients including sender
     io.emit('chatMessage', msg);
   });
 
   socket.on('typing', (payload) => {
-    // payload: { name, typing }
     io.emit('typing', payload);
+  });
+
+  socket.on('newMember', (payload) => {
+    io.emit('newMember', payload);
   });
 
   socket.on('disconnect', () => {
