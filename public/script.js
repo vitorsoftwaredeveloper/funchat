@@ -13,39 +13,45 @@ let myName = '';
 let typingUsers = new Set();
 let typingTimeout;
 
-joinForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const value = nameInput.value.trim();
-  if (!value) return alert('Digite um nome');
-  myName = value;
+function initialize() {
+  msgInput.disabled = true;
+  nameInput.focus();
 
-  nameInput.style.visibility = 'hidden';
-  joinBtn.style.visibility = 'hidden';
+  joinForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const value = nameInput.value.trim();
+    if (!value) return alert('Digite um nome');
+    myName = value;
 
-  chatSection.style.display = 'flex';
-  socket.emit('newMember', { name: myName });
-  msgInput.focus();
-});
+    nameInput.style.visibility = 'hidden';
+    joinBtn.style.visibility = 'hidden';
 
-chatForm.addEventListener('submit', (e) => {
-  e.preventDefault();
-  if (!myName) return alert('Primeiro entre com seu nome');
-  const text = msgInput.value.trim();
-  if (!text) return;
-  const payload = { author: myName, text };
-  socket.emit('chatMessage', payload);
-  msgInput.value = '';
-  addMessage(text, myName, true);
-});
+    chatSection.style.display = 'flex';
+    socket.emit('newMember', { name: myName });
+    msgInput.disabled = false;
+    msgInput.focus();
+  });
 
-msgInput.addEventListener('input', () => {
-  if (!myName) return;
-  sendTyping(true);
-  clearTimeout(typingTimeout);
-  typingTimeout = setTimeout(() => {
-    sendTyping(false);
-  }, 800);
-});
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!myName) return alert('Primeiro entre com seu nome');
+    const text = msgInput.value.trim();
+    if (!text) return;
+    const payload = { author: myName, text };
+    socket.emit('chatMessage', payload);
+    msgInput.value = '';
+    addMessage(text, myName, true);
+  });
+
+  msgInput.addEventListener('input', () => {
+    if (!myName) return;
+    sendTyping(true);
+    clearTimeout(typingTimeout);
+    typingTimeout = setTimeout(() => {
+      sendTyping(false);
+    }, 800);
+  });
+}
 
 function avatarFor(name) {
   const initials = name[0].toUpperCase();
@@ -116,6 +122,8 @@ function renderTyping() {
     (arr.length > 3 ? ` e mais ${arr.length - 3}...` : '') +
     ' está digitando...';
 }
+
+initialize();
 
 socket.on('chatMessage', (payload) => {
   if (payload.author === myName) return;
