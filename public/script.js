@@ -8,10 +8,27 @@ const joinBtn = document.getElementById('joinBtn');
 const chatSection = document.getElementById('chatSection');
 const typingIndicator = document.getElementById('typingIndicator');
 const joinForm = document.getElementById('joinForm');
+const titlePage = document.getElementsByTagName('title')[0];
 
 let myName = '';
 let typingUsers = new Set();
 let typingTimeout;
+let countMessages = 0;
+let isTabVisible = !document.hidden;
+
+function updateVisibility() {
+  const visible = !document.hidden;
+  isTabVisible = visible;
+
+  countMessages = 0;
+  titlePage.textContent = 'Chat App';
+
+  // Quando a aba deixa de ser vista, pare de anunciar "typing"
+  if (!visible) {
+    sendTyping(false);
+    clearTimeout(typingTimeout);
+  }
+}
 
 function initialize() {
   msgInput.disabled = true;
@@ -40,6 +57,7 @@ function initialize() {
     const payload = { author: myName, text };
     socket.emit('chatMessage', payload);
     msgInput.value = '';
+
     addMessage(text, myName, true);
   });
 
@@ -50,6 +68,17 @@ function initialize() {
     typingTimeout = setTimeout(() => {
       sendTyping(false);
     }, 800);
+  });
+
+  // Eventos para capturar mudança de visibilidade / foco
+  document.addEventListener('visibilitychange', () => updateVisibility());
+  window.addEventListener('focus', () => updateVisibility());
+  window.addEventListener('blur', () => updateVisibility());
+
+  // Garantir que o servidor saiba quando o usuário fecha/fecha a aba
+  // isso aqui vai ser legal para mostrar quando um usuário está online ou offline
+  window.addEventListener('beforeunload', () => {
+    if (myName) socket.emit('visibility', { name: myName, visible: false });
   });
 }
 
@@ -97,6 +126,15 @@ function addMessage(text, author, isYou) {
   div.appendChild(bubble);
   messagesEl.appendChild(div);
   messagesEl.scrollTop = messagesEl.scrollHeight;
+
+  notificationNewMessage();
+}
+
+function notificationNewMessage() {
+  countMessages += 1;
+
+  titlePage.textContent =
+    countMessages && !isTabVisible ? `Chat App (${countMessages})` : 'Chat App';
 }
 
 function newMemberJoined(name) {
