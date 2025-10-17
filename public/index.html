@@ -45,12 +45,27 @@
         <div id="typingIndicator" class="typing" aria-live="polite"></div>
         <form id="chatForm" class="chat-form">
           <input id="msgInput" autocomplete="off" placeholder="Escreva uma mensagem..." />
+          <input id="imageInput" type="file" accept="image/*" style="display: none" />
+          <button type="button" id="attachBtn" title="Anexar imagem">📎</button>
           <button>Enviar</button>
         </form>
+
+        <!-- preview removed: images are sent immediately when selected -->
+
+        <!-- Modal to view image in detail -->
+        <div id="imageModal" class="image-modal" style="display: none">
+          <div class="modal-backdrop" id="modalBackdrop"></div>
+          <div class="modal-content" role="dialog" aria-modal="true">
+            <button id="modalClose" class="modal-close" aria-label="Fechar">✕</button>
+            <img id="modalImg" alt="visualização" />
+            <div class="modal-caption" id="modalCaption"></div>
+          </div>
+        </div>
       </section>
     </main>
 
     <script src="/socket.io/socket.io.js"></script>
+    <script src="/events/attachImage.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

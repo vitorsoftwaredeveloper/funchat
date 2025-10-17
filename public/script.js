@@ -61,6 +61,43 @@ function initialize() {
     addMessage(text, myName, true);
   });
 
+  // preview removed — images are sent immediately on selection
+
+  // modal logic: open when clicking chat images
+  document.addEventListener('click', (e) => {
+    const target = e.target;
+    if (target && target.classList && target.classList.contains('chat-image')) {
+      const modal = document.getElementById('imageModal');
+      const modalImg = document.getElementById('modalImg');
+      const modalCaption = document.getElementById('modalCaption');
+      if (modal && modalImg) {
+        modalImg.src = target.src;
+        modalCaption.textContent = target.alt || '';
+        modal.style.display = 'flex';
+      }
+    }
+  });
+
+  const modalClose = document.getElementById('modalClose');
+  const modalBackdrop = document.getElementById('modalBackdrop');
+  if (modalClose)
+    modalClose.addEventListener(
+      'click',
+      () => (document.getElementById('imageModal').style.display = 'none')
+    );
+  if (modalBackdrop)
+    modalBackdrop.addEventListener(
+      'click',
+      () => (document.getElementById('imageModal').style.display = 'none')
+    );
+
+  document.addEventListener('keydown', (ev) => {
+    if (ev.key === 'Escape') {
+      const modal = document.getElementById('imageModal');
+      if (modal) modal.style.display = 'none';
+    }
+  });
+
   msgInput.addEventListener('input', () => {
     if (!myName) return;
     sendTyping(true);
@@ -130,6 +167,33 @@ function addMessage(text, author, isYou) {
   notificationNewMessage();
 }
 
+function addImageMessage(dataUrl, author, isYou) {
+  const div = document.createElement('div');
+  div.className = 'message' + (isYou ? ' you' : '');
+  const avatarEl = avatarFor(author);
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  const meta = document.createElement('div');
+  meta.className = 'meta';
+  meta.textContent =
+    author +
+    ' • ' +
+    new Date(dataUrl ? Date.now() : Date.now()).toLocaleTimeString([], {
+      hour: '2-digit',
+      minute: '2-digit',
+    });
+  const img = document.createElement('img');
+  img.src = dataUrl;
+  img.alt = 'imagem enviada';
+  img.className = 'chat-image';
+  bubble.appendChild(meta);
+  bubble.appendChild(img);
+  div.appendChild(avatarEl);
+  div.appendChild(bubble);
+  messagesEl.appendChild(div);
+  messagesEl.scrollTop = messagesEl.scrollHeight;
+}
+
 function notificationNewMessage() {
   countMessages += 1;
 
@@ -177,4 +241,11 @@ socket.on('typing', ({ name, typing }) => {
 
 socket.on('newMember', ({ name }) => {
   newMemberJoined(name);
+});
+
+// receive images from server
+socket.on('image', ({ author, dataUrl, time }) => {
+  if (!dataUrl) return;
+  if (author === myName) return; // avoid duplicate (we already appended on send)
+  addImageMessage(dataUrl, author, false);
 });
