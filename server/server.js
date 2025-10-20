@@ -25,6 +25,12 @@ io.on('connection', (socket) => {
     io.emit('newMember', payload);
   });
 
+  // Receive image uploads (as data URL) and broadcast to all clients
+  socket.on('image', (payload) => {
+    // payload: { author, dataUrl, time }
+    io.emit('image', payload);
+  });
+
   socket.on('disconnect', () => {
     console.log('Usuário desconectado:', socket.id);
   });
