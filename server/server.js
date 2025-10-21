@@ -7,7 +7,6 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
-// Serve static files from public
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
 io.on('connection', (socket) => {
@@ -25,10 +24,12 @@ io.on('connection', (socket) => {
     io.emit('newMember', payload);
   });
 
-  // Receive image uploads (as data URL) and broadcast to all clients
   socket.on('image', (payload) => {
-    // payload: { author, dataUrl, time }
     io.emit('image', payload);
+  });
+
+  socket.on('audio', (payload) => {
+    io.emit('audio', payload);
   });
 
   socket.on('disconnect', () => {

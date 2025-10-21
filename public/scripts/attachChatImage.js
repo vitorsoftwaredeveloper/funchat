@@ -13,13 +13,12 @@ function initialize() {
     const file = ev.target.files && ev.target.files[0];
     if (!file) return;
 
-    // validate mime type and size (4MB)
     validateImageSize(file);
 
     const reader = new FileReader();
     reader.onload = () => {
       const dataUrl = reader.result;
-      // check image dimensions before sending
+
       const imgCheck = new Image();
       imgCheck.onload = async () => {
         const maxDim = 3000;
@@ -27,13 +26,12 @@ function initialize() {
           return alert(`Imagem com dimensões muito grandes (max ${maxDim}x${maxDim}).`);
         }
 
-        // send immediately
         const prevText = attachBtn.textContent;
         try {
           attachBtn.disabled = true;
           attachBtn.textContent = 'Enviando...';
           const payload = { author: myName, dataUrl, time: new Date().toISOString() };
-          // slight delay to show feedback
+
           await new Promise((r) => setTimeout(r, 200));
           socket.emit('image', payload);
           addImageMessage(dataUrl, myName, true);
@@ -47,7 +45,6 @@ function initialize() {
       imgCheck.src = dataUrl;
     };
     reader.readAsDataURL(file);
-    // clear selection so same file can be selected again
     imageInput.value = '';
   });
 
