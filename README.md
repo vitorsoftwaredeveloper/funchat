@@ -1,45 +1,96 @@
-# Chat App (demo)
+# FunChat
 
-Pequeno app de chat usando Express + Socket.io. Tema escuro com tons de azul para combinar com o portfólio.
+Pequeno aplicativo de chat em tempo real (protótipo).
 
-## Estrutura
+URL principal (produção): https://funchat-jwip.onrender.com/
 
-- `server/server.js` - servidor Express + Socket.io
+Também é possível rodar localmente em: http://localhost:3000
+
+## Resumo
+
+Servidor Node.js com Express que serve o frontend estático e usa Socket.io para mensagens em tempo real. O cliente é uma app simples em HTML/CSS/vanilla JS.
+
+Funcionalidades principais
+
+- Chat em tempo real (texto)
+- Envio de imagens (cliente lê imagem como DataURL e envia via Socket.io)
+- Gravação de áudio no cliente (MediaRecorder) e envio por socket (reprodução nos outros clientes)
+
+# FunChat
+
+Pequeno aplicativo de chat em tempo real (protótipo).
+
+**URL principal (produção):** https://funchat-jwip.onrender.com/
+
+Também é possível rodar localmente em: http://localhost:3000
+
+## Resumo
+
+Servidor Node.js com Express que serve o frontend estático e usa Socket.io para mensagens em tempo real. O cliente é uma app simples em HTML/CSS/vanilla JS.
+
+## Funcionalidades principais
+
+- Chat em tempo real (texto)
+- Envio de imagens (cliente lê imagem como DataURL e envia via Socket.io)
+- Gravação de áudio no cliente (MediaRecorder) e envio por socket (reprodução nos outros clientes)
+- Indicador de "digitando"
+- Avatares simples gerados a partir das iniciais do nome
+- Modal de visualização para imagens
+
+## Estrutura do projeto
+
+- `server/` - servidor Express + Socket.io (`server/server.js`)
 - `public/` - frontend estático
-  - `index.html`, `style.css`, `script.js`
+  - `index.html`, `style.css`
+  - `public/scripts/` - pequenos módulos frontend (anexar imagem, gravação, mensagens, etc.)
 - `package.json`
 
-## Como rodar
+## Como rodar (desenvolvimento)
 
 1. Instale dependências:
 
 ```bash
-cd chat-app
 npm install
 ```
 
-2. Rode o servidor (exemplo usando porta 3001):
+2. Inicie o servidor:
 
 ```bash
-PORT=3001 npm start
+node server/server.js
 ```
 
-3. Abra no navegador:
+3. Abra o navegador na URL principal (local):
 
-http://localhost:3001
+```
+http://localhost:3000
+```
 
-Observação: se a porta 3000 estiver em uso, ajuste `PORT` como no exemplo acima.
+<strong>Abra em mais de uma aba/janela para testar envio/recepção entre clientes.</strong>
 
-## Funcionalidades
+## Próximos passos recomendados
 
-- Conexão em tempo real com Socket.io
-- Enviar/receber mensagens
-- Indicador "está digitando..."
-- Avatares gerados por iniciais
+- Implementar upload HTTP para imagens/áudio e retornar URLs (mais robusto).
+- Persistência de mensagens (DB) e paginação no cliente.
+- Melhorar UX: toasts, indicador de gravação, limitar duração máxima de gravação, barra de progresso de upload.
+- Refatorar frontend em módulos (já iniciamos essa divisão em `public/scripts/`).
 
-## Próximos passos (sugestões)
+## Contribuição
 
-- Persistir histórico (ex: Redis ou DB leve)
-- Sistema de salas / DM
-- Autenticação e persistência de usuários
-- Melhor tratamento de reconexão e confirmações de entrega
+Sinta-se livre para abrir issues ou PRs.
+
+## Recursos existentes
+
+- Deve permitir inserir imagens
+- Deve permitir gravar áudios
+
+## Melhorias futuras
+
+- Deve bloquear o mesmo nome
+- Deve permitir colocar videos
+- Deve permitir inserir documentos
+- Deve armazenar histórico de conversas
+- Deve permitir contato com várias pessoas através do seu link ou url
+- Quando alguém falar disparar som e notificação na aba
+- Lmpar o campo de nome para nao duplicar a aba e ter o mesmo nome
+- Implementar alguma modelo de toastify para avisos
+- Refatorar frontend em módulos (já iniciamos essa divisão em `public/scripts/`).
